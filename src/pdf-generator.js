@@ -82,7 +82,7 @@ async function myAnalysis(context) {
     date_period[0] = date_period[0].format("MM/DD");
 
     // The code below downloads the PDF code
-    const pdf_template_url = "https://api.tago.io/file/5f11a4d99fc64c001b5b20e0/report.html";
+    const pdf_template_url = "https://raw.githubusercontent.com/tago-io/example-pdf-generator/master/src/report.html";
     let html = (await axios.get(pdf_template_url)).data;
 
     // All the code below inserts data into our PDF code
