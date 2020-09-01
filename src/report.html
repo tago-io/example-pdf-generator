@@ -1,0 +1,274 @@
+<html>
+ <head>
+   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+   <style>
+         body, html {
+           color: #181818;
+           font-family: 'Fira Sans', sans-serif;
+           margin: 0;
+           padding: 0 20px;
+           --main-color: ${main_color};
+         }
+         table {
+             border-collapse: collapse;
+             margin-top: 40px;
+             width: 100%;
+         }
+         table caption {
+           color: rgba(0,0,0,.65);
+           font-size: 18px;
+           font-weight: bold;
+           margin-bottom: 15px;
+         }
+         td {
+             border-bottom: 1px solid #ddd;
+             padding: 10px;
+         }
+         tr:last-of-type td {
+           border: none;
+         }
+         th {
+           color: var(--main-color);
+           padding: 10px;
+           text-align: left;
+         }
+         img {
+           height: 50px;
+           max-width: 100%;
+         }
+         h1 {
+           margin-right: 10px;
+         }
+         hr {
+           border-color: var(--main-color);
+           margin-bottom: 30px;
+         }
+
+         .container {
+           background-color: hsl(0deg 0% 98%);
+           border-radius: 10px;
+         }
+
+         .pdf-header {
+           align-items: center;
+           background-image: url(${background_img_url});
+           background-position: 0 -200;
+           background-size: cover;
+           border-top-left-radius: 10px;
+           border-top-right-radius: 10px;
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+           margin-top: 20px;
+           padding: 15px 30px;
+           text-align: center;
+         }
+
+        .pdf-header h1 {
+          background-color: #fff;
+          border-radius: 1px;
+          padding: 5px 10px;
+        }
+
+        .pdf-header > p {
+          background-color: #fff;
+          border-radius: 1px;
+          padding: 5px 10px;
+        }
+
+         .info-container {
+           background-position: 0 -100;
+           border: 1px solid hsla(0,0%,90.2%,.44);
+           display: flex;
+           height: 270px;
+           padding: 10px 0;
+         }
+
+         .summary {
+           border-left: 1px solid hsla(0,0%,90.2%,.44);
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           padding: 15px 10px;
+           width: 30%;
+         }
+
+         .summary p, strong {
+           color: rgba(0,0,0,.57);
+         }
+
+         .info-card {
+           padding: 0 8px;
+         }
+
+         .harvest-info {
+           padding: 10px 15px;
+           width: 70%;
+         }
+
+         .harvest-info h3 {
+           color: rgba(0,0,0,.57);
+           margin-block-start: 0;
+           margin-bottom: 0;
+         }
+
+         .line-chart{
+           width: 100%;
+         }
+
+         .ct-series-a .ct-line {
+           stroke: var(--main-color);
+           stroke-width: 3px;
+         }
+
+         .ct-series-a .ct-point {
+           stroke: var(--main-color);
+         }
+
+         .ct-series-a .ct-area {
+           fill: var(--main-color);
+         }
+
+         .cta {
+           align-items: center;
+           background-color: var(--main-color);
+           /* box-shadow: 0px 4px 10px rgba(26, 83, 26, 0.25); */
+           display: flex;
+           justify-content: center;
+           margin-top: 20px;
+           width: 100%;
+         }
+
+         .cta a {
+           color: #f8f8f8;
+           font-weight: bold;
+           letter-spacing: 2px;
+           padding: 15px 20px;
+           text-align: center;
+           text-decoration: none;
+           width: 100%;
+         }
+
+         .footer {
+           align-items: center;
+           /* color: ${main_color}; */
+           display: flex;
+           flex-direction: row;
+           justify-content: center;
+           margin-top: 20px;
+           padding: 15px 30px;
+           text-align: center;
+         }
+
+         .table thead {
+           background-color: hsla(0,0%,90.2%,.30);
+           border: 1px solid hsla(0,0%,90.2%,.44);
+         }
+
+     </style>
+     <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+ </head>
+ <body>
+   <div class="container">
+
+     <header class="pdf-header">
+       <h1>Farm Statistics</h1>
+       <p>${full_date}</p>
+     </header>
+
+     <section>
+
+     </section>
+
+     <div class="info-container">
+       <div class="harvest-info">
+         <h3>Harvest (tons) - Last 7 days</h3>
+         <section class="line-chart">
+         </section>
+       </div>
+       <div class="summary">
+         <section class="info-card">
+           <main>
+             <p><strong>Soil moisture (avg): </strong>${avg_soil_moisture}%</p>
+           </main>
+         </section>
+         <section class="info-card">
+           <main>
+             <p><strong>Max UV: </strong>${max_uv} uW</p>
+           </main>
+         </section>
+         <section class="info-card">
+           <main>
+             <p><strong>Max soil temp: </strong>${max_temp} C</p>
+           </main>
+         </section>
+         <div class="cta">
+           <a href="${dashboard_url}" target="_blank">Check live data</a>
+         </div>
+       </div>
+     </div>
+
+     <table class="table">
+       <caption>Farm indicators</caption>
+       <thead>
+         <th>
+           <p>Indicator</p>
+         </th>
+         <th>
+           <p>Quantity</p>
+         </th>
+         <th>
+           <p>Updated at</p>
+         </th>
+       </thead>
+       <tbody>
+         <tr>
+           <td>
+             <p>Max harvest</p>
+           </td>
+           <td>
+             <p>${max_harvest} tons</p>
+           </td>
+           <td>
+             <p>08/18/2020</p>
+           </td>
+         </tr>
+         <tr>
+           <td>
+             <p>Min harvest</p>
+           </td>
+           <td>
+             <p>${min_harvest} tons</p>
+           </td>
+           <td>
+             <p>08/18/2020</p>
+           </td>
+         </tr>
+       </thead>
+     </table>
+
+     <footer class="footer">
+       Tago Farm - 2020
+     </footer>
+   </div>
+
+   <script>
+     new Chartist.Line('.line-chart', {
+       labels: ${date_period},
+       series: [
+         ${chart_data}
+       ]
+     }, {
+     fullWidth: true,
+     showArea: true,
+     axisX: {
+       showGrid: false
+     },
+     axisY: {
+       showGrid: false
+     }
+   });
+     </script>
+ </body>
+</html>
