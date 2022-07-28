@@ -109,9 +109,11 @@ async function myAnalysis(context) {
       },
     };
 
+    // Start the PDF service
+    const pdf = new Services({ token: context.token }).PDF;
+
     const base64 = Buffer.from(html).toString("base64");
-    const result = await axios.post("https://pdf.tago.io", { base64, options });
-    const pdf = result.data.result;
+    const report = await pdf.generate({ base64, options }).catch((msg) => console.log(msg));
 
     // Start the email service
     const email = new Services({ token: context.token }).email;
@@ -121,7 +123,7 @@ async function myAnalysis(context) {
       subject: "Farm Report",
       message: "This is the body of your email, you can send some information alongside your report.",
       attachment: {
-        archive: pdf,
+        archive: report.result,
         type: "base64",
         filename: "farm-report.pdf",
       },
